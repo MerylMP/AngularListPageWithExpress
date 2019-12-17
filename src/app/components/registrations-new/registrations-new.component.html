@@ -1,0 +1,109 @@
+<mat-card>
+    <mat-card-title>Nuevo registro</mat-card-title>
+    <mat-card-content>
+        <form (ngSubmit)="registerContact()" #registerForm="ngForm">
+            <div class="form-group">
+                <mat-form-field>
+                    <mat-label>Nombre</mat-label>
+                    <input matInput placeholder="" [(ngModel)]="name" id="name" name="name" type="text" minlength="3"
+                        pattern="[a-zA-Z]*" required #nameR="ngModel">
+                    <span class="help-block" *ngIf="nameR.errors?.required && nameR.touched">
+                        El campo nombre es obligatorio
+                    </span>
+                    <span class="help-block" *ngIf="nameR.errors?.minlength">
+                        El nombre debe tener como mínimo 3 caracteres
+                    </span>
+                </mat-form-field>
+
+                <mat-form-field>
+                    <mat-label>Apellidos</mat-label>
+                    <input matInput placeholder="" [(ngModel)]="surname" id="surname" name="surname" type="text"
+                        minlength="3" pattern="[a-zA-Z ]*" required #surnameR="ngModel">
+                    <span class="help-block" *ngIf="surnameR.errors?.required && nameR.touched">
+                        El campo apellido es obligatorio
+                    </span>
+                    <span class="help-block" *ngIf="surnameR.errors?.minlength">
+                        El apellido debe tener como mínimo 3 caracteres
+                    </span>
+                </mat-form-field>
+            </div>
+
+            <div class="form-group">
+                <mat-form-field>
+                    <mat-label>Edad</mat-label>
+                    <input matInput placeholder="" [(ngModel)]="age" id="age" name="age" type="number" min="0" max="125"
+                        pattern="[0-9]{1,3}" required #ageR="ngModel">
+                    <span class="help-block" *ngIf="ageR.errors?.required && ageR.touched">
+                        El campo edad es obligatorio
+                    </span>
+                    <span class="help-block" *ngIf="(age > 125)">
+                        Edad superior a lo permitido
+                    </span>
+                </mat-form-field>
+
+                <mat-form-field>
+                    <mat-label>DNI</mat-label>
+                    <input matInput placeholder="" [(ngModel)]="dni" id="dni" name="dni" type="text"
+                        pattern="[0-9]{8}[A-Za-z]{1}" required #dniR="ngModel">
+                    <span class="help-block" *ngIf="dniR.errors?.required && dniR.touched">
+                        El campo DNI es obligatorio
+                    </span>
+                    <span class="help-block" *ngIf="dniR.errors?.pattern">
+                        DNI con formato erróneo
+                    </span>
+                </mat-form-field>
+            </div>
+
+            <div class="form-group">
+                <mat-form-field>
+                    <mat-label>Cumpleaños</mat-label>
+                    <input matInput readonly [matDatepicker]="picker" [(ngModel)]="dateOfBirth" id="dateOfBirth"
+                        name="dateOfBirth" required #dateOfBirthR="ngModel">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                    <span class="help-block" *ngIf="dateOfBirthR.errors?.required && dateOfBirthR.touched">
+                        El campo cumpleaños es obligatorio
+                    </span>
+                </mat-form-field>
+            </div>
+
+            <div class="form-group">
+                <mat-form-field>
+                    <mat-label>Género</mat-label>
+                    <mat-select [(value)]="gender" required>
+                        <mat-option value="Hombre">Hombre</mat-option>
+                        <mat-option value="Mujer">Mujer</mat-option>
+                        <mat-option value="Otro">Otro</mat-option>
+                        <mat-option selected="selected" value="No especificado">No especificado</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+            <div class="form-group">
+                <mat-form-field>
+                    <mat-label>Color favorito</mat-label>
+                    <input matInput placeholder="" [(ngModel)]="favouriteColor" id="favouriteColor"
+                        name="favouriteColor" type="text" minlength="3" pattern="[a-zA-Z ]*" required
+                        #favouriteColorR="ngModel">
+                    <span class="help-block" *ngIf="favouriteColorR.errors?.required && favouriteColorR.touched">
+                        El campo cumpleaños es obligatorio
+                    </span>
+                    <span class="help-block" *ngIf="favouriteColorR.errors?.minlength">
+                        El color debe tener como mínimo 3 caracteres
+                    </span>
+                </mat-form-field>
+            </div>
+
+            <div class="form-group">
+                <mat-form-field>
+                    <mat-label>Notas</mat-label>
+                    <input matInput placeholder="" [(ngModel)]="notes" id="notes" name="notes" type="text">
+                </mat-form-field>
+            </div>
+            <div>
+                <button mat-raised-button color="primary" [disabled]="registerForm.form.invalid"
+                    type="submit">Registrar</button>
+            </div>
+        </form>
+    </mat-card-content>
+</mat-card>

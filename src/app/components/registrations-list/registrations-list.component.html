@@ -1,0 +1,74 @@
+<div class="title">
+    <h1 class="mat-h1">Contactos</h1>
+</div>
+
+<div>
+    <button mat-raised-button color="primary" [routerLink]="['/newRegistration']">Añadir contacto</button>
+</div>
+<br>
+<br>
+
+<mat-card>
+    <mat-card-title>Registro</mat-card-title>
+    <mat-card-content>
+        <br>
+        <p *ngIf="dataSource.data.length == 0" class="no-data">¡Todavía no hay contactos registrados!</p>
+
+        <table mat-table matSort [dataSource]="dataSource" class="mat-elevation-z8"
+            [hidden]="!dataSource.data.length > 0">
+            <!--             <ng-container matColumnDef="id" sticky>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
+                <td mat-cell *matCellDef="let contact"> {{element.id}} </td>
+            </ng-container> -->
+
+            <ng-container matColumnDef="name" sticky>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</th>
+                <td mat-cell *matCellDef="let contact"> {{contact.name}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="surname">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Apellidos</th>
+                <td mat-cell *matCellDef="let contact"> {{contact.surname}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="dni">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>DNI</th>
+                <td mat-cell *matCellDef="let contact"> {{contact.dni}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="gender">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Género</th>
+                <td mat-cell *matCellDef="let contact"> {{contact.gender}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="age">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Edad</th>
+                <td mat-cell *matCellDef="let contact"> {{contact.age}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="dateOfBirth">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Fecha de nacimiento</th>
+                <td mat-cell *matCellDef="let contact"> {{contact.dateOfBirth | date: 'dd/MM/yyyy'}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="favouriteColor">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Color favorito</th>
+                <td mat-cell *matCellDef="let contact"> {{contact.favouriteColor}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="notes">
+                <th mat-header-cell *matHeaderCellDef>Notas</th>
+                <td mat-cell *matCellDef="let contact"> {{contact.notes}} </td>
+            </ng-container>
+            <ng-container matColumnDef="action">
+                <th mat-header-cell *matHeaderCellDef></th>
+                <td mat-cell *matCellDef="let contact; let i = index">
+                    <button mat-raised-button color="primary" [routerLink]="['/editContact', i]">Editar</button>
+                    <button mat-raised-button color="accent" (click)="deleteContact(i, contact)">Borrar</button>
+                </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="columnsToDisplay; sticky: true"></tr>
+            <tr mat-row *matRowDef="let contactRowData; columns: columnsToDisplay"></tr>
+        </table>
+    </mat-card-content>
+</mat-card>
