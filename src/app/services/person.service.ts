@@ -21,17 +21,22 @@ export class PersonService {
 
   // Add  a contact
   public addContact(name: string, surname: string, age: number, dni: string,
-    dateOfBirth: Date, favouriteColour: string, gender: string, notes: string) {
-    /*   const contactPerson = new Person(name, surname, age, dni, dateOfBirth,
-        favouriteColour, gender, notes);
-      // this.registrationsList.push(contactPerson);
-  
-      this.http.post('localhost:4200/api/users/',
-  
-      ) */
+                    dateOfBirth: Date, favouriteColour: string, gender: string, notes: string): Observable<any> {
+
+    const body = {
+      name,
+      surname,
+      age,
+      dni,
+      dateOfBirth,
+      favouriteColour,
+      gender,
+      notes
+    };
+
+    return this.http.post(this.usersUrl, body, this.httpOptions);
 
   }
-
 
   // Get a contact or all the contacts
   public getContactById(id: string): Observable<Person> {
@@ -52,6 +57,6 @@ export class PersonService {
   // Delete a contact
   public deleteContact(id: string): Observable<any> {
     return this.http.delete<Person>(this.usersUrl + '/' + id);
- }
+  }
 }
 
