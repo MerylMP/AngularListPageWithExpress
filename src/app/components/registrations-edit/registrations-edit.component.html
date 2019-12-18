@@ -6,7 +6,7 @@
                 <mat-form-field>
                     <mat-label>Nombre</mat-label>
                     <input matInput placeholder="" [(ngModel)]="contactRegistration.name" id="name" name="name"
-                        type="text" minlength="3" pattern="[a-zA-Z]*" required #name="ngModel">
+                        type="text" minlength="3" pattern="^([^\s]+[^0-9])+$" required #name="ngModel">
                     <span class="help-block" *ngIf="name.errors?.required">
                         El campo nombre es obligatorio
                     </span>
@@ -18,7 +18,7 @@
                 <mat-form-field>
                     <mat-label>Apellidos</mat-label>
                     <input matInput placeholder="" [(ngModel)]="contactRegistration.surname" id="surname" name="surname"
-                        type="text" minlength="3" pattern="[a-zA-Z ]*" required #surname="ngModel">
+                        type="text" minlength="3" pattern="^([^\s]+[^0-9])+$" required #surname="ngModel">
                     <span class="help-block" *ngIf="surname.errors?.required">
                         El campo apellido es obligatorio
                     </span>
@@ -83,7 +83,7 @@
                 <mat-form-field>
                     <mat-label>Color favorito</mat-label>
                     <input matInput placeholder="" [(ngModel)]="contactRegistration.favouriteColor" id="favouriteColor"
-                        name="favouriteColor" type="text" minlength="3" pattern="[a-zA-Z ]*" required
+                        name="favouriteColor" type="text" minlength="3" pattern="^([^\s]+[^0-9])+$" required
                         #favouriteColor="ngModel">
                     <span class="help-block" *ngIf="favouriteColor.errors?.required">
                         El campo color es obligatorio

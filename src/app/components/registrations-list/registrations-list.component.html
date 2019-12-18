@@ -3,7 +3,7 @@
 </div>
 
 <div>
-    <button mat-raised-button color="primary" [routerLink]="['/newRegistration']">Añadir contacto</button>
+    <button mat-raised-button color="primary" [routerLink]="['/users/form-add']">Añadir contacto</button>
 </div>
 <br>
 <br>
@@ -16,11 +16,6 @@
 
         <table mat-table matSort [dataSource]="dataSource" class="mat-elevation-z8"
             [hidden]="!dataSource.data.length > 0">
-            <!--             <ng-container matColumnDef="id" sticky>
-                <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
-                <td mat-cell *matCellDef="let contact"> {{element.id}} </td>
-            </ng-container> -->
-
             <ng-container matColumnDef="name" sticky>
                 <th mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</th>
                 <td mat-cell *matCellDef="let contact"> {{contact.name}} </td>
@@ -62,9 +57,9 @@
             </ng-container>
             <ng-container matColumnDef="action">
                 <th mat-header-cell *matHeaderCellDef></th>
-                <td mat-cell *matCellDef="let contact; let i = index">
-                    <button mat-raised-button color="primary" [routerLink]="['/editContact', i]">Editar</button>
-                    <button mat-raised-button color="accent" (click)="deleteContact(i, contact)">Borrar</button>
+                <td mat-cell *matCellDef="let contact">
+                    <button mat-raised-button color="primary" [routerLink]="['/users/form-edit/', contact._id]">Editar</button>
+                    <button mat-raised-button color="accent" (click)="deleteContact(contact._id)">Borrar</button>
                 </td>
             </ng-container>
             <tr mat-header-row *matHeaderRowDef="columnsToDisplay; sticky: true"></tr>

@@ -9,9 +9,10 @@ import { Router, ActivatedRoute } from '@angular/router';
   templateUrl: './registrations-edit.component.html',
   styleUrls: ['./registrations-edit.component.css']
 })
+
 export class RegistrationsEditComponent implements OnInit {
 
-  private index: string;
+  private id: string;
   private contactRegistration: Person;
   private name: string;
   private surname: string;
@@ -30,13 +31,25 @@ export class RegistrationsEditComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.index = this.activatedRoute.snapshot.paramMap.get('position');
-    this.contactRegistration = this.personService.getContact(this.index);
+    this.id = this.activatedRoute.snapshot.paramMap.get('id');
+    this.personService.getContactById(this.id).subscribe(data => {
+
+      this.contactRegistration = new Person(
+          data[0]._id,
+          data[0].name,
+          data[0].surname,
+          data[0].age,
+          data[0].dni,
+          data[0].dateOfBirth,
+          data[0].favouriteColour,
+          data[0].gender,
+          data[0].notes
+        );
+    });
   }
 
-
-  updateChanges() {
-    this.personService.updateContacts(this.index, this.contactRegistration);
-    this.router.navigateByUrl('contactsList');
+  updateChanges() { // corregir
+    this.personService.updateContacts(this.id, this.contactRegistration);
+    this.router.navigateByUrl('users');
   }
 }

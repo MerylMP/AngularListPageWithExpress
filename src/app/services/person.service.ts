@@ -1,44 +1,57 @@
 import { Injectable } from '@angular/core';
 import { Person } from '../classes/Person';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable, of } from 'rxjs';
+import { catchError, map, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PersonService {
 
-  private registrationsList: Person[];
+  // URL to users API
+  private usersUrl = 'api/users';
 
-  constructor() {
-    this.registrationsList = [];
-  }
+  httpOptions = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  };
+
+  constructor(private http: HttpClient) { }
+
 
   // Add  a contact
   public addContact(name: string, surname: string, age: number, dni: string,
-                    dateOfBirth: Date, favouriteColor: string, gender: string, notes: string) {
-    const contactPerson = new Person(name, surname, age, dni, dateOfBirth,
-      favouriteColor, gender, notes);
-    this.registrationsList.push(contactPerson);
+    dateOfBirth: Date, favouriteColour: string, gender: string, notes: string) {
+    /*   const contactPerson = new Person(name, surname, age, dni, dateOfBirth,
+        favouriteColour, gender, notes);
+      // this.registrationsList.push(contactPerson);
+  
+      this.http.post('localhost:4200/api/users/',
+  
+      ) */
+
   }
 
 
   // Get a contact or all the contacts
-  public getContact(id: string): Person {
-    return this.registrationsList[id];
+  public getContactById(id: string): Observable<Person> {
+    return this.http.get<Person>(this.usersUrl + '/' + id);
   }
 
-  public getRegistrationsList(): Person[] {
-    return this.registrationsList;
+  public getRegistrationsList(): Observable<Person[]> {
+    return this.http.get<Person[]>(this.usersUrl);
   }
 
 
   // Update a contact
   public updateContacts(id: string, contactPerson: Person) {
-    this.registrationsList[id] = contactPerson;
-  }
+/*     this.registrationsList[id] = contactPerson;
+ */  }
 
 
   // Delete a contact
-  public deleteContact(id: number) {
-    this.registrationsList.splice(id, 1);
-  }
+  public deleteContact(id: string): Observable<any> {
+    return this.http.delete<Person>(this.usersUrl + '/' + id);
+ }
 }
+
