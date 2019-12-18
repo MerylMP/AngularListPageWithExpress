@@ -3,6 +3,7 @@ import { Person } from '../classes/Person';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
+import { url } from 'inspector';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +20,7 @@ export class PersonService {
   constructor(private http: HttpClient) { }
 
 
-  // Add  a contact
+  // Add contact
   public addContact(name: string, surname: string, age: number, dni: string,
                     dateOfBirth: Date, favouriteColour: string, gender: string, notes: string): Observable<any> {
 
@@ -48,13 +49,27 @@ export class PersonService {
   }
 
 
-  // Update a contact
-  public updateContacts(id: string, contactPerson: Person) {
-/*     this.registrationsList[id] = contactPerson;
- */  }
+  // Update contact
+   public updateContacts(_id: string, name: string, surname: string, age: number, dni: string,
+                        dateOfBirth: Date, favouriteColour: string, gender: string, notes: string): Observable<any> {
+
+    const body = {
+      name,
+      surname,
+      age,
+      dni,
+      dateOfBirth,
+      favouriteColour,
+      gender,
+      notes
+    };
+
+    const urlUser = this.usersUrl + '/' + _id;
+    return this.http.put(urlUser, body, this.httpOptions);
+  }
 
 
-  // Delete a contact
+  // Delete contact
   public deleteContact(id: string): Observable<any> {
     return this.http.delete<Person>(this.usersUrl + '/' + id);
   }

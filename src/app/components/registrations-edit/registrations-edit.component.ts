@@ -35,21 +35,37 @@ export class RegistrationsEditComponent implements OnInit {
     this.personService.getContactById(this.id).subscribe(data => {
 
       this.contactRegistration = new Person(
-          data[0]._id,
-          data[0].name,
-          data[0].surname,
-          data[0].age,
-          data[0].dni,
-          data[0].dateOfBirth,
-          data[0].favouriteColour,
-          data[0].gender,
-          data[0].notes
-        );
+        data[0]._id,
+        data[0].name,
+        data[0].surname,
+        data[0].age,
+        data[0].dni,
+        data[0].dateOfBirth,
+        data[0].favouriteColour,
+        data[0].gender,
+        data[0].notes
+      );
     });
   }
 
-  updateChanges() { // corregir
-    this.personService.updateContacts(this.id, this.contactRegistration);
-    this.router.navigateByUrl('users');
+  updateChanges() {
+    this.personService.updateContacts(
+      this.id,
+      this.contactRegistration.getName(),
+      this.contactRegistration.getSurname(),
+      this.contactRegistration.getAge(),
+      this.contactRegistration.getDni(),
+      this.contactRegistration.getDateOfBirth(),
+      this.contactRegistration.getFavouriteColor(),
+      this.contactRegistration.getGender(),
+      this.contactRegistration.getNotes()
+    ).subscribe(resp => {
+      if (resp.modifiedCount > 0) {
+        console.log('Usuario modificado');
+        this.router.navigateByUrl('users');
+      } else {
+        alert('Error al modificar usuario.');
+      }
+    });
   }
 }
