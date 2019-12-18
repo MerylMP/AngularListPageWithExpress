@@ -10,6 +10,7 @@ import { RegistrationsEditComponent } from './components/registrations-edit/regi
 import { RegistrationsListComponent } from './components/registrations-list/registrations-list.component';
 import { FormsModule } from '@angular/forms';
 import { PersonService } from './services/person.service';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import { PersonService } from './services/person.service';
     AppRoutingModule,
     BrowserAnimationsModule,
     AngularMaterialModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule,
   ],
   providers: [PersonService],
   bootstrap: [AppComponent]

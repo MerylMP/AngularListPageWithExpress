@@ -6,11 +6,18 @@ import { RegistrationsEditComponent } from './components/registrations-edit/regi
 
 
 const routes: Routes = [
-  { path: 'contactsList', component: RegistrationsListComponent },
+  { path: '', redirectTo: '/users', pathMatch: 'full' },
+  { path: 'users', component: RegistrationsListComponent },
+  { path: 'users/form-edit/:id', component: RegistrationsEditComponent },
+
+
+  /* { path: 'contactsList', component: RegistrationsListComponent },
   { path: 'newRegistration', component: RegistrationsNewComponent },
-  { path: 'editContact/:position', component: RegistrationsEditComponent},
-  { path: '', redirectTo: '/contactsList', pathMatch: 'full' }
+  { path: 'editContact/:position', component: RegistrationsEditComponent}, */
+  { path: 'users/:id', component: RegistrationsListComponent },
+  { path: 'users/form-add', component: RegistrationsNewComponent }
 ];
+
 
 
 @NgModule({
