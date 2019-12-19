@@ -5,8 +5,9 @@
             <div class="form-group">
                 <mat-form-field>
                     <mat-label>Nombre</mat-label>
-                    <input matInput placeholder="" [(ngModel)]="contactRegistration.name" id="name" name="name"
-                        type="text" minlength="3" pattern="^([^\s]+[^0-9])+$" required #name="ngModel">
+                    <input matInput placeholder="" [ngModel]="contactRegistration?.name"
+                        (ngModelChange)="contactRegistration.name = $event" id="name" name="name" type="text"
+                        minlength="3" pattern="^([^\s]+[^0-9])+$" required #name="ngModel">
                     <span class="help-block" *ngIf="name.errors?.required">
                         El campo nombre es obligatorio
                     </span>
@@ -17,8 +18,9 @@
 
                 <mat-form-field>
                     <mat-label>Apellidos</mat-label>
-                    <input matInput placeholder="" [(ngModel)]="contactRegistration.surname" id="surname" name="surname"
-                        type="text" minlength="3" pattern="^([^\s]+[^0-9])+$" required #surname="ngModel">
+                    <input matInput placeholder="" [ngModel]="contactRegistration?.surname"
+                        (ngModelChange)="contactRegistration.surname = $event" id="surname" name="surname" type="text"
+                        minlength="3" pattern="^([^\s]+[^0-9])+$" required #surname="ngModel">
                     <span class="help-block" *ngIf="surname.errors?.required">
                         El campo apellido es obligatorio
                     </span>
@@ -31,19 +33,21 @@
             <div class="form-group">
                 <mat-form-field>
                     <mat-label>Edad</mat-label>
-                    <input matInput placeholder="" [(ngModel)]="contactRegistration.age" id="age" name="age"
-                        type="number" min="0" max="125" pattern="[0-9]{1,3}" required #age="ngModel">
-                    <span class="help-block" *ngIf="age.errors?.required">
+                    <input matInput placeholder="" [ngModel]="contactRegistration?.age"
+                        (ngModelChange)="contactRegistration.age = $event" id="age" name="age" type="number" min="0"
+                        max="125" pattern="[0-9]{1,3}" required #ageR="ngModel">
+                    <span class="help-block" *ngIf="ageR.errors?.required">
                         El campo edad es obligatorio
                     </span>
-                    <span class="help-block" *ngIf="contactRegistration.age > 125">
-                        Edad superior a lo permitido
+                    <span class="help-block" *ngIf="contactRegistration?.age > 125">
+                        Edad superior a la permitida
                     </span>
                 </mat-form-field>
 
                 <mat-form-field>
                     <mat-label>DNI</mat-label>
-                    <input matInput placeholder="" [(ngModel)]="contactRegistration.dni" id="dni" name="dni" type="text"
+                    <input matInput placeholder="" [ngModel]="contactRegistration?.dni"
+                        (ngModelChange)="contactRegistration.dni = $event" id="dni" name="dni" type="text"
                         pattern="[0-9]{8}[A-Za-z]{1}" required #dni="ngModel">
                     <span class="help-block" *ngIf="dni.errors?.required">
                         El campo dni es obligatorio
@@ -57,8 +61,9 @@
             <div class="form-group">
                 <mat-form-field>
                     <mat-label>Cumpleaños</mat-label>
-                    <input matInput readonly [matDatepicker]="picker" [(ngModel)]="contactRegistration.dateOfBirth"
-                        id="dateOfBirth" name="dateOfBirth" required #dateOfBirth="ngModel">
+                    <input matInput readonly [matDatepicker]="picker" [ngModel]="contactRegistration?.dateOfBirth"
+                        (ngModelChange)="contactRegistration.dateOfBirth = $event" id="dateOfBirth" name="dateOfBirth"
+                        required #dateOfBirth="ngModel">
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker></mat-datepicker>
                     <span class="help-block" *ngIf="dateOfBirth.errors?.required">
@@ -70,7 +75,8 @@
             <div class="form-group">
                 <mat-form-field>
                     <mat-label>Género</mat-label>
-                    <mat-select [(value)]="contactRegistration.gender" required name="gender">
+                    <mat-select [ngModel]="contactRegistration?.gender"
+                        (ngModelChange)="contactRegistration.gender = $event" required name="gender">
                         <mat-option value="Hombre">Hombre</mat-option>
                         <mat-option value="Mujer">Mujer</mat-option>
                         <mat-option value="Otro">Otro</mat-option>
@@ -82,13 +88,14 @@
             <div class="form-group">
                 <mat-form-field>
                     <mat-label>Color favorito</mat-label>
-                    <input matInput placeholder="" [(ngModel)]="contactRegistration.favouriteColor" id="favouriteColor"
-                        name="favouriteColor" type="text" minlength="3" pattern="^([^\s]+[^0-9])+$" required
-                        #favouriteColor="ngModel">
-                    <span class="help-block" *ngIf="favouriteColor.errors?.required">
+                    <input matInput placeholder="" [ngModel]="contactRegistration?.favouriteColour"
+                        (ngModelChange)="contactRegistration.favouriteColour = $event" id="favouriteColour"
+                        name="favouriteColour" type="text" minlength="3" pattern="^([^\s]+[^0-9])+$" required
+                        #favouriteColour="ngModel">
+                    <span class="help-block" *ngIf="favouriteColour.errors?.required">
                         El campo color es obligatorio
                     </span>
-                    <span class="help-block" *ngIf="favouriteColor.errors?.minlength">
+                    <span class="help-block" *ngIf="favouriteColour.errors?.minlength">
                         El color debe tener como mínimo 3 caracteres
                     </span>
                 </mat-form-field>
@@ -97,8 +104,8 @@
             <div class="form-group">
                 <mat-form-field>
                     <mat-label>Notas</mat-label>
-                    <input matInput placeholder="" [(ngModel)]="contactRegistration.notes" id="notes" name="notes"
-                        type="text">
+                    <input matInput placeholder="" [ngModel]="contactRegistration?.notes"
+                        (ngModelChange)="contactRegistration.notes = $event" id="notes" name="notes" type="text">
                 </mat-form-field>
             </div>
 
