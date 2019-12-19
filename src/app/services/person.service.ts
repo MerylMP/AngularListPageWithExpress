@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { Person } from '../classes/Person';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
-import { catchError, map, tap } from 'rxjs/operators';
-import { url } from 'inspector';
+import { catchError } from 'rxjs/operators';
+
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +22,7 @@ export class PersonService {
 
   // Add contact
   public addContact(name: string, surname: string, age: number, dni: string,
-                    dateOfBirth: Date, favouriteColour: string, gender: string, notes: string): Observable<any> {
+    dateOfBirth: Date, favouriteColour: string, gender: string, notes: string): Observable<any> {
 
     const body = {
       name,
@@ -35,23 +35,31 @@ export class PersonService {
       notes
     };
 
-    return this.http.post(this.usersUrl, body, this.httpOptions);
-
+    return this.http.post<any>(this.usersUrl, body, this.httpOptions)
+      .pipe(
+        catchError(this.handleError('addContact', null))
+      );
   }
 
   // Get a contact or all the contacts
   public getContactById(id: string): Observable<Person> {
-    return this.http.get<Person>(this.usersUrl + '/' + id);
+    return this.http.get<Person>(this.usersUrl + '/' + id)
+      .pipe(
+        catchError(this.handleError('getContactById', null))
+      );
   }
 
-  public getRegistrationsList(): Observable<Person[]> {
-    return this.http.get<Person[]>(this.usersUrl);
+  public getContactsList(): Observable<Person[]> {
+    return this.http.get<Person[]>(this.usersUrl)
+      .pipe(
+        catchError(this.handleError('getContactsList', []))
+      );
   }
 
 
   // Update contact
-   public updateContacts(_id: string, name: string, surname: string, age: number, dni: string,
-                        dateOfBirth: Date, favouriteColour: string, gender: string, notes: string): Observable<any> {
+  public updateContacts(_id: string, name: string, surname: string, age: number, dni: string,
+    dateOfBirth: Date, favouriteColour: string, gender: string, notes: string): Observable<any> {
 
     const body = {
       name,
@@ -65,13 +73,28 @@ export class PersonService {
     };
 
     const urlUser = this.usersUrl + '/' + _id;
-    return this.http.put(urlUser, body, this.httpOptions);
+    return this.http.put<any>(urlUser, body, this.httpOptions)
+      .pipe(
+        catchError(this.handleError('updateContacts', null))
+      );
   }
 
 
   // Delete contact
   public deleteContact(id: string): Observable<any> {
-    return this.http.delete<Person>(this.usersUrl + '/' + id);
+    return this.http.delete<Person>(this.usersUrl + '/' + id)
+      .pipe(
+        catchError(this.handleError('deleteContact', null))
+      );
+  }
+
+
+  private handleError<T>(operation = 'operation', result?: T) {
+    return (error: any): Observable<T> => {
+      console.error(error);
+      console.log(`${operation} failed: ${error.message}`);
+      return of(result as T);
+    };
   }
 }
 
