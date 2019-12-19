@@ -14,7 +14,7 @@ import { Person } from 'src/app/classes/Person';
 export class RegistrationsListComponent implements OnInit {
 
   dataSource = new MatTableDataSource<Person>([]);
-  columnsToDisplay: string[] = ['name', 'surname', 'dni', 'gender', 'age', 'dateOfBirth', 'favouriteColor', 'notes', 'action'];
+  columnsToDisplay: string[] = ['name', 'surname', 'dni', 'gender', 'age', 'dateOfBirth', 'favouriteColour', 'notes', 'action'];
 
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
@@ -28,9 +28,9 @@ export class RegistrationsListComponent implements OnInit {
 
 
   private getAllRegistrations() {
-    this.personService.getRegistrationsList().subscribe(data => {
+    this.personService.getContactsList().subscribe(resp => {
       const usersList: Person[] = [];
-      for (const userData of (data as any)) {
+      for (const userData of (resp as any)) {
         const user = new Person(
           userData._id,
           userData.name,
@@ -52,11 +52,9 @@ export class RegistrationsListComponent implements OnInit {
 
   deleteContact(id: string) {
     if (window.confirm('Se borrará el registro. ¿Desea continuar?')) {
-      this.personService.deleteContact(id).subscribe(data => {
-        if (data.deletedCount > 0) {
-          console.log('User deleted');
+      this.personService.deleteContact(id).subscribe(resp => {
+        if (resp.deletedCount > 0) {
           this.getAllRegistrations();
-
         } else {
           alert('Error en el borrado de usuario');
         }

@@ -19,7 +19,7 @@ export class RegistrationsEditComponent implements OnInit {
   private age: number;
   private dni: string;
   private dateOfBirth: Date;
-  private favouriteColor: string;
+  private favouriteColour: string;
   private gender: string;
   private notes: string;
 
@@ -32,18 +32,18 @@ export class RegistrationsEditComponent implements OnInit {
 
   ngOnInit() {
     this.id = this.activatedRoute.snapshot.paramMap.get('id');
-    this.personService.getContactById(this.id).subscribe(data => {
+    this.personService.getContactById(this.id).subscribe(resp => {
 
       this.contactRegistration = new Person(
-        data[0]._id,
-        data[0].name,
-        data[0].surname,
-        data[0].age,
-        data[0].dni,
-        data[0].dateOfBirth,
-        data[0].favouriteColour,
-        data[0].gender,
-        data[0].notes
+        resp[0]._id,
+        resp[0].name,
+        resp[0].surname,
+        resp[0].age,
+        resp[0].dni,
+        resp[0].dateOfBirth,
+        resp[0].favouriteColour,
+        resp[0].gender,
+        resp[0].notes
       );
     });
   }
@@ -56,16 +56,14 @@ export class RegistrationsEditComponent implements OnInit {
       this.contactRegistration.getAge(),
       this.contactRegistration.getDni(),
       this.contactRegistration.getDateOfBirth(),
-      this.contactRegistration.getFavouriteColor(),
+      this.contactRegistration.getFavouriteColour(),
       this.contactRegistration.getGender(),
       this.contactRegistration.getNotes()
     ).subscribe(resp => {
-      if (resp.modifiedCount > 0) {
-        console.log('Usuario modificado');
+        if (resp.modifiedCount === 0) {
+          alert('El usuario no ha sido modificado');
+        }
         this.router.navigateByUrl('users');
-      } else {
-        alert('Error al modificar usuario.');
-      }
     });
   }
 }
