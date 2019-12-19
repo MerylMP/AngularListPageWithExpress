@@ -5,20 +5,20 @@ export class Person {
     private age: number;
     private dni: string;
     private dateOfBirth: Date;
-    private favouriteColor: string;
+    private favouriteColour: string;
     private gender: string;
     private notes: string;
 
 
     constructor(id: string, name: string, surname: string, age: number, dni: string, dateOfBirth: Date,
-                favouriteColor: string, gender: string, notes: string) {
+                favouriteColour: string, gender: string, notes: string) {
         this._id = id;
         this.name = name;
         this.surname = surname;
         this.age = age;
         this.dni = dni;
         this.dateOfBirth = dateOfBirth;
-        this.favouriteColor = favouriteColor;
+        this.favouriteColour = favouriteColour;
         this.gender = gender;
         this.notes = notes;
     }
@@ -71,12 +71,12 @@ export class Person {
         return this.dateOfBirth = dateOfBirth;
     }
 
-    public getFavouriteColor(): string {
-        return this.favouriteColor;
+    public getFavouriteColour(): string {
+        return this.favouriteColour;
     }
 
-    public setFavouriteColor(favouriteColor: string): string {
-        return this.favouriteColor = favouriteColor;
+    public setFavouriteColour(favouriteColour: string): string {
+        return this.favouriteColour = favouriteColour;
     }
 
     public getGender(): string {
@@ -98,7 +98,7 @@ export class Person {
     public printPersonData(): string {
         return `${this.getName()} ${this.getSurname()}.
          Fecha de nacimiento: ${this.getDateOfBirth().toLocaleDateString('es')}, edad: ${this.getAge()}.
-         DNI: ${this.getDni()}, sexo: ${this.getGender()}, color favorito:  ${this.getFavouriteColor()}.
+         DNI: ${this.getDni()}, sexo: ${this.getGender()}, color favorito:  ${this.getFavouriteColour()}.
          Notas: ${this.getNotes()}`;
     }
 }

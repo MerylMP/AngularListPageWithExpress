@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PersonService } from 'src/app/services/person.service';
 import { Router } from '@angular/router';
-import { Person } from 'src/app/classes/Person';
 
 @Component({
   selector: 'app-registrations-new',
@@ -16,7 +15,7 @@ export class RegistrationsNewComponent implements OnInit {
   private age: number;
   private dni: string;
   private dateOfBirth: Date;
-  private favouriteColor: string;
+  private favouriteColour: string;
   private gender: string;
   private notes: string;
 
@@ -34,15 +33,15 @@ export class RegistrationsNewComponent implements OnInit {
     this.age = null;
     this.dni = null;
     this.dateOfBirth = null;
-    this.favouriteColor = null;
+    this.favouriteColour = null;
     this.gender = 'No especificado';
     this.notes = null;
   }
 
   registerContact() {
-    this.personService.addContact(this.name, this.surname, this.age, this.dni, this.dateOfBirth,
-      this.favouriteColor, this.gender, this.notes).subscribe(resp => {
-        console.log('resp', resp);
+    this
+    .personService.addContact(this.name, this.surname, this.age, this.dni, this.dateOfBirth,
+      this.favouriteColour, this.gender, this.notes).subscribe(resp => {
         if (resp.insertedCount > 0) {
           this.router.navigateByUrl('users');
         } else {
